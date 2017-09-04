@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -15,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import com.corlate.corlate.core.service.CorlateService;
 
 @SlingServlet(paths = {"/bin/servlet"}, generateComponent = true, generateService = true)
+
+
 
 public class CorlateTestServlet extends SlingAllMethodsServlet{
 

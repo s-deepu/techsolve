@@ -1,0 +1,17 @@
+<sly data-sly-use.childUse="add-childs.js"/>
+<section class="pricing-page">
+        <div class="container">
+            <div class="center">  
+                <h2>Pricing Table</h2>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
+            </div>  
+            <div class="pricing-area text-center">
+                <div class="row">
+                  <div data-sly-test="${childUse.childs}" data-sly-list="${childUse.childs}" class="row">
+                <div> <sly data-sly-resource="${@path=item, resourceType='corlate/components/dependent/pricing-child'}"/></div>
+
+
+                 </div></div>
+            </div><!--/pricing-area-->
+        </div><!--/container-->
+    </section><!--/pricing-page-->

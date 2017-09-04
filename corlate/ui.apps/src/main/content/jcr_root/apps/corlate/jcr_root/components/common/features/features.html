@@ -1,0 +1,16 @@
+<sly data-sly-use.childUse="add-childs.js"/>
+<section id="${properties.text}">
+ <div class="center wow fadeInDown">
+                <h2>Features</h2>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
+            </div>
+
+            <div class="row">
+                <div data-sly-test="${childUse.childs}" data-sly-list="${childUse.childs}" class="features">
+
+                    <!--/* Including Features Child */-->
+                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <div class="feature-wrap">
+                    <sly data-sly-resource="${@path=item, resourceType='corlate/components/dependent/features-child'}"/>
+                        </div>
+                    </div></div></div></section>

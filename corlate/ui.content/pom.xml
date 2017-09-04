@@ -123,7 +123,7 @@
                         <embedded>
                             <groupId>com.corlate</groupId>
                             <artifactId>corlate.core</artifactId>
-                            <target>/apps/corlate/install</target>
+                            <target>/apps/project/install</target>
                         </embedded>
                     </embeddeds>
                 </configuration>

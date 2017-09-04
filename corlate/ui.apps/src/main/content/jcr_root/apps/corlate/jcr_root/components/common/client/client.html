@@ -1,0 +1,25 @@
+
+<sly data-sly-use.childUse="add-childs.js"/>
+<div class="get-started center wow fadeInDown">
+                <h2>Ready to get started</h2>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore  magna aliqua. <br>  Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+                <div class="request">
+                    <h4><a href="#">Request a free Quote</a></h4>
+                </div>
+            </div><!--/.get-started-->
+
+            <div class="clients-area center wow fadeInDown">
+                <h2>What our client says</h2>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
+            </div>
+
+                <div class="row">
+                     <div data-sly-test="${childUse.childs}" data-sly-list="${childUse.childs}" class="row">
+
+                <div class="col-md-4 wow fadeInDown">
+                    <div class="clients-comments text-center">
+
+                     <sly data-sly-resource="${@path=item, resourceType='corlate/components/dependent/client-child'}"/>
+
+                    </div>
+                </div></div></div>
