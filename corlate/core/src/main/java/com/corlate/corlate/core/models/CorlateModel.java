@@ -1,7 +1,5 @@
 package com.corlate.corlate.core.models;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolverFactory;
