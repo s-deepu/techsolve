@@ -1,0 +1,12 @@
+<sly data-sly-use.childUse="add-childs.js"/>
+<div class="col-sm-6 wow fadeInDown">
+                    <div class="accordion">
+                        <h2>Why People like us?</h2>
+                        <div class="panel-group" id="accordion1">
+       <div data-sly-test="${childUse.childs}" data-sly-list="${childUse.childs}" class="accordion">   
+                                 <sly data-sly-resource="${@path=item, resourceType='corlate/components/dependent/accordian-child'}"/>
+                             </div>
+This is for commit into git ===> test
+        </div><!--/#accordion1-->
+                    </div>
+                </div>

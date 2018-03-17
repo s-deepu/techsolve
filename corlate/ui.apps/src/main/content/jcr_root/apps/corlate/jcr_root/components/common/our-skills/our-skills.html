@@ -1,0 +1,17 @@
+    <sly data-sly-use.childUse="add-childs.js"/>
+
+<div class="col-sm-6 wow fadeInDown">
+                    <div class="skill">
+                        <h2>Our Skills</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+<div class="progress-wrap">
+
+
+<div data-sly-test="${childUse.childs}" data-sly-list="${childUse.childs}" class="row">
+
+                                 <sly data-sly-resource="${@path=item, resourceType='corlate/components/dependent/ourskills-child'}"/>
+
+                        </div></div>
+
+                       </div></div> </div><!--/.col-sm-6-->

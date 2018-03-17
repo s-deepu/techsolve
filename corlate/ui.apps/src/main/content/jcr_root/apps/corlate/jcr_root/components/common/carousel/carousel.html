@@ -1,0 +1,22 @@
+
+    <sly data-sly-use.slides="add-carousel-childs.js"/>
+    <section id="main-slider" class="no-margin">
+        <div class="${wcmmode.edit ? '' : 'carousel slide' }">
+
+            <ol data-sly-test="${slides.childs}" data-sly-list="${slides.childs}"  class="carousel-indicators">
+                <li data-target="#main-slider" data-slide-to="${itemList.index}" class="${itemList.first ? 'active' : ''}"></li>
+
+            </ol>
+            <div data-sly-test="${slides.childs}" data-sly-list="${slides.childs}" class="carousel-inner">
+                <sly data-sly-resource="${@path=item, resourceType='corlate/components/dependent/carousel-child'}"/>
+
+
+   </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+        <a class="next hidden-xs" href="#main-slider" data-slide="next">
+            <i class="fa fa-chevron-right"></i>
+        </a>
+    </section><!--/#main-slider-->

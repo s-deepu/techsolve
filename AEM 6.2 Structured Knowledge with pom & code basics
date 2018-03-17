@@ -1,0 +1,12 @@
+AEM - Adobe Experience Manager Mainly deals with Four frameworks or technologies
+We'll call them as Tech-Stack (Technology Stack of AEM)
+    - OSGI : Felix
+    - Repo : JCR/CRX (Java Content Repository / Content Repository Extreme)
+    - Sling : CMS (Content Management Service)
+    - AEM : Server
+    
+Terminology in AEM : - Sightly : an HTL language
+                     - Template : bluePrint of webPages
+                     - Component : small divisions in page, easy to access page content
+                     - Nodes : content will be stored in the form of nodes (for path based access)
+                     - 
