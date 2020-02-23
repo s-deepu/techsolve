@@ -1,0 +1,127 @@
+/*************************************************************************
+* ADOBE CONFIDENTIAL
+* ___________________
+*
+* Copyright 2018 Adobe
+* All Rights Reserved.
+*
+* NOTICE: All information contained herein is, and remains
+* the property of Adobe and its suppliers, if any. The intellectual
+* and technical concepts contained herein are proprietary to Adobe
+* and its suppliers and are protected by all applicable intellectual
+* property laws, including trade secret and copyright laws.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Adobe.
+**************************************************************************/
+(function(window, $) {
+    "use strict";
+
+    var MULTIFIELD_SELECTOR = "coral-multifield";
+    var COMPOSITE_MULTIFIELD_SELECTOR = "coral-multifield[data-granite-coral-multifield-composite]";
+
+    /**
+     * Traverses the given parent and call the given callback when an element is a submittable.
+     */
+    function traverse(parent, callback) {
+        parent.children().each(function() {
+            var child = $(this);
+            if (child.is(":-foundation-submittable")) {
+                callback(this);
+            } else {
+                traverse(child, callback);
+            }
+        });
+    }
+
+    /**
+     * Recursively renames internal fields inside multifield following pattern
+     * {multifield name}/item{index}/{field name}
+     * @param {HTMLElement} multifield - main element to perform name change
+     * @param {String} prefix - forced prefix to use
+     */
+    function changeNames(multifield, prefix) {
+        var $multifield = $(multifield);
+        var isParentComposite = $multifield.is(COMPOSITE_MULTIFIELD_SELECTOR);
+        var parentName = $multifield.adaptTo("foundation-field").getName();
+        var itemPrefix = prefix || parentName;
+
+        // not able to construct proper composite path
+        if (!itemPrefix) {
+            return;
+        }
+
+        multifield.items.getAll().forEach(function(item, i) {
+            // clear item prefix for this iteration
+            itemPrefix = prefix || parentName;
+
+            if (isParentComposite) {
+                itemPrefix += "/item" + i + "/";
+            }
+
+            traverse($(item), function(el) {
+                var field = $(el);
+                var fieldAPI = field.adaptTo("foundation-field");
+
+                if (!fieldAPI) {
+                    return;
+                }
+
+                if (!fieldAPI.setName) {
+                    throw new Error("The field doesn't support FoundationField#setName");
+                }
+
+                var name = field.data("cachedName");
+
+                if (!name) {
+                    name = fieldAPI.getName();
+                    field.data("cachedName", name);
+                }
+
+                if (!name) {
+                    return;
+                }
+
+                var finalName = itemPrefix + name;
+                fieldAPI.setName(finalName);
+
+                // if our field is multifield we need to change its fields
+                if (field.is(MULTIFIELD_SELECTOR)) {
+                    if (field.is(COMPOSITE_MULTIFIELD_SELECTOR)) {
+                        changeNames(el, finalName);
+                    } else {
+                        changeNames(el, itemPrefix);
+                    }
+                }
+            });
+        });
+    }
+
+    // Initialize multifield items added by JS
+    $(document).on("coral-collection:add", "coral-multifield", function(event) {
+        if (this === event.target) {
+            // We need one more frame to make sure the item renders the template in the DOM
+            Coral.commons.nextFrame(function() {
+                $(this).trigger("foundation-contentloaded");
+            }.bind(this));
+        }
+    });
+
+    // change composite names on item manipulation
+    $(document).on("coral-collection:add coral-collection:remove coral-multifield:itemorder",
+        COMPOSITE_MULTIFIELD_SELECTOR, function() {
+            Coral.commons.ready(this, function(el) {
+                changeNames(el, "");
+            });
+        });
+
+    // change composite names on initialization
+    $(document).on("foundation-contentloaded", function(e) {
+        var composites = $(COMPOSITE_MULTIFIELD_SELECTOR, e.target);
+        composites.each(function() {
+            Coral.commons.ready(this, function(el) {
+                changeNames(el, "");
+            });
+        });
+    });
+})(window, Granite.$);
